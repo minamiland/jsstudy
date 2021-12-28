@@ -45,5 +45,30 @@
       }
     }
   </script>
+  <script>
+    const INIT_VAL_OF_PROMPT = '';
+    const promptButton = document.getElementById('prom-btn');
+    promptButton.addEventListener('click', () => {
+        showPromptValue('title:', INIT_VAL_OF_PROMPT);
+    });
+
+    function showPromptValue(title, value) {
+        const result = prompt(title, value);
+
+        // build text message
+        const textToShow = (result === '') ? '입력값이 없다구!' : result;
+
+        console.log(title, textToShow);
+
+        // append text element
+        const p = document.querySelector('p');
+        if (p.innerText.length > 0) {
+            p.innerText = '';
+        }
+
+        const text = document.createTextNode(textToShow);
+        p.appendChild(text);
+    }
+  </script>
 </body>
 </html>

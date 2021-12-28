@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button type="button" id="click">prompt</button>
+  <p></p>
+
+  <script>
+    // promptVal 함수 호출
+    var clickEvent = document.getElementById('click');
+    clickEvent.addEventListener('click', function(){
+      promptVal('title: ', '');
+    });
+
+    // prompt 제어
+    function promptVal(title, value) {
+      let checkVal = prompt(title, value);
+
+      // prompt 선택 방식에 따라 값 출력
+      if (checkVal === null) {
+        checkVal = 'Canceled';
+      } else if (checkVal === '') {
+        checkVal = 'Not have data';
+      } else {
+        // 입력값 확인
+        console.log(title, checkVal);
+      }
+
+      // 입력값 화면에 표시
+      let thisP = document.querySelector('p');
+      let insetVal = document.createTextNode(checkVal);
+
+      if ( thisP.innerText.length === 0) {
+        // 입력값이 비어있을 경우 표시
+        thisP.appendChild(insetVal);
+      } else {
+        // 입력값이 비어있지 않을 경우 초기화 후 표시
+        thisP.innerText = '';
+        thisP.appendChild(insetVal);
+      }
+    }
+  </script>
+</body>
+</html>

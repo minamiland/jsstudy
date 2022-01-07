@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    .slider {width: 320px;overflow:hidden;position: relative;}
+    .tabs {position: absolute;z-index: 1;display: inline-block;width: 100%;height: 2rem;}
+    .tab {width: 33.33%;height: 100%;appearance: none;border: none;float: left;display: block;}
+    .contents {width: 320px;min-height: 100px;display: block;position: relative;}
+    .content {padding: 1rem;width: 320px;height: 100%;position: absolute;box-sizing: border-box;}
+</style>
+</head>
+<body>
+<div class="slider">
+    <div class="tabs">
+        <button class="tab">1</button>
+        <button class="tab">2</button>
+        <button class="tab">3</button>
+    </div>
+    <div class="contents">
+        <div class="content">1</div>
+        <div class="content">2</div>
+        <div class="content">3</div>
+    </div>
+</div>
+
+<ul>
+    <li>크롬, 엣지 정상</li>
+    <li>IE11에서 contentSlideMotion 함수 동작 이상</li>
+    <li>const, let을 var로 변경시 크롬에서도 동일현상 확인</li>
+</ul>
+
+<script>
+    const slider   = document.querySelector('.slider');
+    const tabs     = document.querySelector('.tabs');
+    const tab      = document.querySelectorAll('.tab');
+    const contents = document.querySelector('.contents');
+    const content  = document.querySelectorAll('.content');
+
+    // 탭 높이값
+    const tabHeight = tabs.offsetHeight;
+    contents.style.marginTop = tabHeight + 'px';
+
+    // 슬라이더 폭 값
+    const sliderWidth = slider.offsetWidth;
+    for (let i = 0; i < tab.length; i++) {
+        // 탭 선택시 동작
+        tab[i].addEventListener('click', function() {
+            contentSlideMotion(i);
+        });
+        for(let j = 0; j < content.length; j++) {
+            content[j].style.left = sliderWidth * j + 'px';
+        }
+    }
+
+    // 탭 선택시 콘텐트 위치 이동 모션 함수
+    function contentSlideMotion(num) {
+        contents.style.transform = 'translate3d(' + -(sliderWidth * num) + 'px, 0px, 0px)';
+        contents.style.transition = '0.4s ease-in';
+    }
+</script>
+</body>
+</html>
